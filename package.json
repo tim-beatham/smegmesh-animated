@@ -4,7 +4,10 @@
   "description": "An animation for smegmesh showcasing how dissemination spreads.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "run-p start-compile start-run",
+    "start-run": "browser-sync start --server -w",
+    "start-compile": "tsc --watch"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +16,8 @@
     "p5": "^1.9.2"
   },
   "devDependencies": {
+    "browser-sync": "^3.0.2",
+    "npm-run-all": "^4.1.5",
     "typescript": "^5.4.4"
   }
 }
