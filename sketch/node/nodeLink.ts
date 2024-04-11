@@ -1,17 +1,24 @@
+
 class NodeLink implements IObject {
     private from: SmegNode;
     private to: SmegNode;
 
     private static C_1: number = .5;
-    private static C_2: number = 200;
+    private static C_2: number = 500;
+
+    private colour: number[];
 
     constructor(from: SmegNode, to: SmegNode) {
         this.from = from;
         this.to = to;
+        this.colour = [random(50, 255), random(50, 255), random(50, 255)];
+    }
+    onCollide(vector: p5.Vector): void {
+        throw new Error("Method not implemented.");
     }
 
     render(): void {
-        stroke(255, 42, 0);
+        stroke(this.colour[0], this.colour[1], this.colour[2]);
 
         const fromPosition = this.from.getPosition();
         const toPosition = this.to.getPosition();

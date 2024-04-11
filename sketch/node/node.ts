@@ -4,11 +4,14 @@ class SmegNode implements IObject, IPointMass, ICollisionBounds {
     private counter: number;
     private collisionBounds: ICollisionBounds;
 
+    private colour: number[];
+
     constructor(position: p5.Vector, radius: number) {
         this.pointMass = new PointMass(position.x, position.y);
         this.radius = radius;
         this.counter = 0;
         this.collisionBounds = new CircleCollisiionBounds(this.radius, this.pointMass);
+        this.colour = [random(50, 255), random(50, 255), random(50, 255)];
     }
 
     isColliding(point: p5.Vector): boolean {
@@ -24,7 +27,7 @@ class SmegNode implements IObject, IPointMass, ICollisionBounds {
     }
 
     render(): void {
-        fill(255, 204, 0);
+        fill(this.colour[0], this.colour[1], this.colour[2]);
 
         const position = this.pointMass.getPosition();
 
@@ -33,7 +36,7 @@ class SmegNode implements IObject, IPointMass, ICollisionBounds {
 
     update(): void {
         const velocity = this.pointMass.getVelocity();
-        const airResistance = velocity.mult(-.01);
+        const airResistance = velocity.mult(-.02);
 
         this.pointMass.update();
         this.pointMass.addForce(airResistance);
