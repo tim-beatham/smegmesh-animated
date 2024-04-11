@@ -19,7 +19,7 @@ class Camera implements IObject {
 
 
         this.movementKeys = new Map();
-        this.zoomKeys = new Map();
+        this.zoomKeys = new Map<number, number>();
 
         this.movementKeys.set(LEFT_ARROW, createVector(-1, 0));
         this.movementKeys.set(RIGHT_ARROW, createVector(1, 0));
@@ -28,6 +28,9 @@ class Camera implements IObject {
 
         this.zoomKeys.set(61, 1);
         this.zoomKeys.set(173, -1);
+    }
+    onCollide(vector: p5.Vector): void {
+        throw new Error("Method not implemented.");
     }
 
     public static getInstance(): Camera {
@@ -43,7 +46,6 @@ class Camera implements IObject {
     }
 
     update(): void {
-
         const displacement = createVector(0, 0);
         let zoom = 0;
 
@@ -53,17 +55,16 @@ class Camera implements IObject {
             }
         }
 
-
         for (const key of this.zoomKeys.keys()) {
             if (keyIsDown(key)) {
                 zoom += this.zoomKeys.get(key);
             }
         }
 
-        this.position.add(displacement.mult(this.speed));
         this.zoom += zoom / 100;
         this.zoom = Math.max(0.2, this.zoom);
         this.zoom = Math.min(1.5, this.zoom);
+        this.position.add(displacement.mult(this.speed * (2 / this.zoom)));
     }
 
     /**

@@ -4,9 +4,25 @@
  * Including working out zoom levels
  */
 class DrawManager {
-    private static worldCoordToRealCoord(coord: p5.Vector) {
+    public static worldCoordToRealCoord(coord: p5.Vector) {
         return createVector(DrawManager.worldXToRealX(coord.x),
         DrawManager.worldYToRealY(coord.y));
+    }
+
+    public static realCoordToWorldCoord(coord: p5.Vector) {
+        return createVector(DrawManager.realXToWorldX(coord.x),
+            DrawManager.realYToWorldY(coord.y));
+    }
+
+
+    private static realXToWorldX(x: number): number {
+        const screenX = x / Camera.getInstance().getZoom();
+        return Camera.getInstance().getDisplacement().x + screenX;
+    }
+
+    private static realYToWorldY(y: number): number {
+        const screenY = y / Camera.getInstance().getZoom();
+        return Camera.getInstance().getDisplacement().y + screenY;
     }
 
     private static worldXToRealX(x: number): number {
