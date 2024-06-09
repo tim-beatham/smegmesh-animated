@@ -37,8 +37,12 @@ class PointMass {
         this.velocity.add(this.force);
         // add velocity to the position
         this.position.add(this.velocity);
-
         // Reset the force to 0
+        this.force = createVector(0, 0);
+    }
+
+    public reset() {
+        this.velocity = createVector(0, 0);
         this.force = createVector(0, 0);
     }
 }
